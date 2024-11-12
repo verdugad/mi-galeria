@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Galería de Fotos</title>
+    <link rel="stylesheet" href="/css/gallery.css"> <!-- Este es el CSS específico para la galería -->
+
+</head>
+<body>
+  <h1>Galería de dotos</h1>
+  <div id="photo-gallery" class="photo-container">
+    <!-- Aquí se mostrarán las fotos -->
+  </div>
+
+  <script>
+    // Cargar las fotos de la ruta /photos y mostrarlas en la galería
+    fetch('/photos')
+      .then(response => response.json())
+      .then(photos => {
+        const gallery = document.getElementById('photo-gallery');
+
+        photos.forEach(photo => {
+          const img = document.createElement('img');
+          img.src = `/uploads/${photo.filename}`; // Acceso a cada imagen
+          img.alt = photo.originalname;
+          gallery.appendChild(img);
+        });
+      })
+      .catch(error => console.error('Error al cargar las fotos:', error));
+  </script>
+</body>
+</html>
